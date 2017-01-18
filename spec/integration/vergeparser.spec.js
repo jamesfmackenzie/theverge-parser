@@ -3,7 +3,7 @@ describe("VergeParser", function() {
   VergeParser = require("../../vergeparser.js");  
   
   describe("parseFeaturedArticles", function() {
-	it("returns at least one result", function(done) {
+	it("returns expected results", function(done) {
 	  // arrange 
 	  var vergeParser = new VergeParser(request);
 	  
@@ -13,6 +13,11 @@ describe("VergeParser", function() {
 		  
 		// assert
   		expect(result.length).toBeGreaterThan(0);
+		for (var i = 0; i < result.length; i++) {
+		  var singleResult = result[i];
+		  expect(singleResult.url).toEqual(jasmine.any(String));
+		  expect(singleResult.title).toEqual(jasmine.any(String));
+        }
 		done();
 	  });
     });  
