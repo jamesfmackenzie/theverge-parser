@@ -23,6 +23,7 @@ function parseFeaturedArticlesFromHtml(html) {
 	insideHeaderSection = false,
 	insideHeadlineTag = false,
 	tagCount = 0,
+	linkText = "",
 			parser = new htmlparser.Parser({
     			onopentag: function(name, attribs){
         			if(name == "div" && attribs.class === "c-seven-up__main"){
@@ -43,8 +44,7 @@ function parseFeaturedArticlesFromHtml(html) {
     			},
     			ontext: function(text){
 					if (insideHeadlineTag) {
-						var url = parsedArticles.pop();
-						parsedArticles.push({ url: url, title: text });
+						linkText = linkText + text;
 					}
     			},
     			onclosetag: function(tagname){
@@ -55,8 +55,12 @@ function parseFeaturedArticlesFromHtml(html) {
 						//console.log("exiting header section");
 						insideHeaderSection = false;
 					}
-					if (tagname == "h2") {
+					if (insideHeaderSection && tagname == "h2") {
 						//console.log("exiting h2");
+						var url = parsedArticles.pop();
+						//console.log(text);
+						parsedArticles.push({ url: url, title: linkText.trim() });
+						linkText = "";
 						insideHeadlineTag = false;
 					}
         		}
