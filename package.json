@@ -1,8 +1,9 @@
 {
   "name": "theverge-parser",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Parse article data from The Verge home page (http://www.theverge.com)",
   "main": "vergeparser.js",
+  "repository": "jamesfmackenzie/theverge-parser",
   "dependencies": {
     "htmlparser2": "^3.9.2",
     "request": "^2.79.0"
